@@ -1,583 +1,290 @@
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>מזל טוב לאבא היקר שלנו! | כרטיס מתנה באהבה</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>מתנה מיוחדת לאבא היקר!</title>
 
-  <!-- Open Graph Meta Tags לוואטסאפ ורשתות חברתיות -->
-  <meta property="og:title" content="🎁 אבא יקר, יש לנו הפתעה מיוחדת בשבילך!">
-  <meta property="og:description" content="פתח את כרטיס המתנה הדיגיטלי עם ברכה מכל המשפחה ושובר BUYME מפנק!">
-  <meta property="og:image" content="https://images.unsplash.com/photo-1513151233558-d860c5398176?q=80&w=1200&auto=format&fit=crop">
-  <meta property="og:type" content="website">
+    <!-- תגיות תצוגה מקדימה לוואטסאפ -->
+    <meta property="og:title" content="מתנה מיוחדת לאבא היקר שלנו! 🎁" />
+    <meta property="og:description" content="נכנסים לראות את כרטיס המתנה והברכה המשפחתית שהכנו במיוחד בשבילך ❤️" />
+    <meta property="og:image" content="WhatsApp Image 2026-09-13 at 20.50.10.jpeg" />
+    <meta property="og:type" content="website" />
 
-  <!-- Tailwind CSS -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  
-  <!-- Font Awesome Icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  
-  <!-- Canvas Confetti -->
-  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;700;800&family=Rubik:wght@500;700;900&display=swap" rel="stylesheet">
 
-  <!-- Google Fonts - Heebo & Playfair Display -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;700;800&family=Frank+Ruhl+Libre:wght@700;900&display=swap" rel="stylesheet">
+    <!-- ספריית קונפטי -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
-  <style>
-    body {
-      font-family: 'Assistant', sans-serif;
-    }
-    .serif-title {
-      font-family: 'Frank Ruhl Libre', serif;
-    }
-    /* כרטיס תלת מימד */
-    .perspective-1000 {
-      perspective: 1200px;
-    }
-    .gift-card {
-      transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.4s ease;
-      transform-style: preserve-3d;
-      background: linear-gradient(135deg, #101c38 0%, #0a1124 50%, #1e3a5f 100%);
-    }
-    .gift-card:hover {
-      box-shadow: 0 25px 50px -12px rgba(212, 175, 55, 0.35);
-    }
-    .gold-gradient-text {
-      background: linear-gradient(135deg, #FFF6D1 0%, #ECC94B 40%, #B7791F 70%, #ECC94B 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-    .gold-border {
-      border: 1px solid rgba(236, 201, 75, 0.35);
-    }
-    .gold-glow-btn {
-      background: linear-gradient(135deg, #F6E05E 0%, #D69E2E 100%);
-      box-shadow: 0 0 25px rgba(236, 201, 75, 0.55);
-      transition: all 0.3s ease;
-    }
-    .gold-glow-btn:hover {
-      transform: translateY(-2px) scale(1.02);
-      box-shadow: 0 0 35px rgba(246, 224, 94, 0.8);
-    }
-    /* סרט מתנה */
-    .ribbon-wrap {
-      overflow: hidden;
-      pointer-events: none;
-    }
-    .ribbon-badge {
-      background: linear-gradient(90deg, #d97706, #f59e0b, #b45309);
-    }
-    /* אנימציית הבלחה */
-    @keyframes shine {
-      0% { transform: translateX(200%) rotate(45deg); }
-      100% { transform: translateX(-200%) rotate(45deg); }
-    }
-    .shimmer-effect {
-      position: absolute;
-      top: -50%;
-      right: -50%;
-      bottom: -50%;
-      left: -50%;
-      background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0.15), transparent);
-      transform: rotate(45deg);
-      pointer-events: none;
-      animation: shine 6s infinite ease-in-out;
-    }
-    /* אפקט רקע צף */
-    .bg-overlay {
-      background: radial-gradient(circle at center, rgba(10, 17, 36, 0.72) 0%, rgba(5, 8, 18, 0.92) 100%);
-    }
-  </style>
+    <style>
+        :root {
+            --primary-gold: #e5b95c;
+            --primary-gold-dark: #b8860b;
+            --bg-dark: #0f111a;
+            --card-surface: rgba(18, 22, 36, 0.75);
+            --border-glass: rgba(229, 185, 92, 0.35);
+            --text-main: #f8fafc;
+            --text-dim: #cbd5e1;
+            --accent-glow: rgba(229, 185, 92, 0.45);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            user-select: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: 'Assistant', sans-serif;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            overflow-x: hidden;
+            position: relative;
+            padding: 24px 16px;
+        }
+
+        /* תמונת הרקע המשפחתית */
+        #bg-layer {
+            position: fixed;
+            inset: -20px;
+            background-image: url('WhatsApp Image 2026-09-13 at 20.50.10.jpeg');
+            background-size: cover;
+            background-position: center center;
+            filter: blur(12px) brightness(0.38) saturate(1.2);
+            transform: scale(1.05);
+            z-index: 0;
+        }
+
+        #bg-overlay {
+            position: fixed;
+            inset: 0;
+            background: radial-gradient(circle at center, rgba(15, 17, 26, 0.4) 0%, rgba(10, 12, 18, 0.88) 100%);
+            z-index: 1;
+        }
+
+        /* מיכל הכרטיס */
+        .wrapper {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            max-width: 480px;
+            perspective: 1200px;
+            margin: auto;
+        }
+
+        .gift-card {
+            position: relative;
+            background: var(--card-surface);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1.5px solid var(--border-glass);
+            border-radius: 28px;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.65), 0 0 35px var(--accent-glow);
+            padding: 38px 28px 32px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            overflow: hidden;
+            transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.4s ease;
+        }
+
+        .gift-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 30px 70px rgba(0, 0, 0, 0.75), 0 0 45px rgba(229, 185, 92, 0.6);
+        }
+
+        .badge {
+            background: linear-gradient(135deg, rgba(229, 185, 92, 0.25), rgba(229, 185, 92, 0.08));
+            border: 1px solid var(--border-glass);
+            border-radius: 50px;
+            padding: 6px 18px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--primary-gold);
+            letter-spacing: 0.8px;
+            margin-bottom: 18px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* תמונת המשפחה במרכז */
+        .card-avatar-wrapper {
+            position: relative;
+            width: 130px;
+            height: 130px;
+            margin-bottom: 20px;
+        }
+
+        .card-avatar {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--primary-gold);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5), 0 0 20px var(--accent-glow);
+        }
+
+        .card-avatar-ring {
+            position: absolute;
+            inset: -6px;
+            border-radius: 50%;
+            border: 1.5px dashed var(--primary-gold);
+            animation: spinRing 24s linear infinite;
+        }
+
+        @keyframes spinRing {
+            100% { transform: rotate(360deg); }
+        }
+
+        /* כותרות וטקסט */
+        .title {
+            font-family: 'Rubik', sans-serif;
+            font-size: 2rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #ffffff 30%, var(--primary-gold) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 6px;
+        }
+
+        .subtitle {
+            font-size: 1.05rem;
+            color: var(--primary-gold);
+            font-weight: 600;
+            margin-bottom: 18px;
+        }
+
+        .greeting-container {
+            position: relative;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 18px;
+            padding: 18px 20px;
+            margin-bottom: 26px;
+        }
+
+        .greeting-text {
+            font-size: 1.05rem;
+            line-height: 1.65;
+            color: var(--text-dim);
+            font-weight: 400;
+            white-space: pre-line;
+        }
+
+        /* כפתור מימוש BUYME */
+        .redeem-btn {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            width: 100%;
+            padding: 17px 28px;
+            font-family: 'Rubik', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #12151f;
+            background: linear-gradient(135deg, #fce09b 0%, #e5b95c 50%, #b8860b 100%);
+            border: none;
+            border-radius: 18px;
+            cursor: pointer;
+            text-decoration: none;
+            box-shadow: 0 12px 28px rgba(229, 185, 92, 0.45), 0 0 25px rgba(229, 185, 92, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .redeem-btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 16px 36px rgba(229, 185, 92, 0.6), 0 0 35px rgba(229, 185, 92, 0.5);
+            color: #000;
+        }
+
+        .redeem-btn:active {
+            transform: scale(0.98);
+        }
+
+        .buyme-badge {
+            margin-top: 14px;
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.45);
+        }
+    </style>
 </head>
-<body class="bg-slate-950 text-white min-h-screen flex flex-col justify-between relative selection:bg-amber-500 selection:text-black overflow-x-hidden">
+<body>
 
-  <!-- תמונת רקע הניתנת להתאמה אישית -->
-  <div id="familyBackground" class="fixed inset-0 bg-cover bg-center transition-all duration-700 -z-20 filter blur-[2px] scale-105" 
-       style="background-image: url('https://images.unsplash.com/photo-1511895426328-dc8714191300?q=80&w=2000&auto=format&fit=crop');">
-  </div>
-  
-  <!-- שכבת כהות ואווירה יוקרתית מעל התמונה כדי שהטקסטים יהיו קריאים וחדים -->
-  <div class="fixed inset-0 bg-overlay -z-10"></div>
+    <div id="bg-layer"></div>
+    <div id="bg-overlay"></div>
 
-  <!-- ניצוצות וחלקיקים צפים -->
-  <div class="fixed inset-0 pointer-events-none -z-10 overflow-hidden opacity-40">
-    <div class="absolute w-72 h-72 rounded-full bg-amber-500/20 blur-3xl -top-10 -right-10 animate-pulse"></div>
-    <div class="absolute w-80 h-80 rounded-full bg-sky-500/15 blur-3xl bottom-10 -left-10 animate-pulse" style="animation-delay: 2s;"></div>
-  </div>
-
-  <!-- סרגל עליון (כפתור עריכה להורים/ילדים + כפתור מוזיקת חגיגה) -->
-  <header class="w-full px-5 py-4 max-w-5xl mx-auto flex items-center justify-between z-20">
-    <div class="flex items-center gap-2">
-      <span class="inline-flex items-center justify-center w-9 h-9 rounded-full bg-amber-500/20 text-amber-400 border border-amber-500/30">
-        <i class="fa-solid fa-gift text-sm"></i>
-      </span>
-      <span class="text-sm font-semibold tracking-wider text-amber-200/90 uppercase">GiftCard For Dad</span>
-    </div>
-
-    <div class="flex items-center gap-3">
-      <!-- כפתור הפעלת צליל חגיגי -->
-      <button id="soundToggleBtn" onclick="playCelebrationChime()" class="bg-slate-900/80 hover:bg-slate-800 text-amber-300 border border-amber-500/30 px-3.5 py-2 rounded-xl text-xs font-medium flex items-center gap-2 backdrop-blur-md transition-all shadow-md active:scale-95" title="השמע צליל חגיגי">
-        <i class="fa-solid fa-volume-high"></i>
-        <span class="hidden sm:inline">צליל חגיגי</span>
-      </button>
-
-      <!-- כפתור פתיחת הגדרות ועריכה אישית -->
-      <button onclick="toggleSettingsModal()" class="bg-amber-500/20 hover:bg-amber-500/30 text-amber-300 border border-amber-400/40 px-3.5 py-2 rounded-xl text-xs font-medium flex items-center gap-2 backdrop-blur-md transition-all shadow-md active:scale-95">
-        <i class="fa-solid fa-pen-to-square"></i>
-        <span>התאם פרטים</span>
-      </button>
-    </div>
-  </header>
-
-  <!-- תוכן מרכזי -->
-  <main class="w-full max-w-4xl mx-auto px-4 py-4 sm:py-8 flex flex-col items-center justify-center flex-grow z-10">
-
-    <!-- כותרת ראשית -->
-    <div class="text-center mb-6 sm:mb-8 space-y-2">
-      <div class="inline-block px-4 py-1.5 rounded-full bg-amber-500/10 border border-amber-400/30 text-amber-300 text-xs sm:text-sm font-medium tracking-wide mb-1">
-        ✨ הפתעה מיוחדת באהבה גדולה ✨
-      </div>
-      <h1 class="serif-title text-3xl sm:text-5xl font-extrabold tracking-tight text-white drop-shadow-md">
-        מזל טוב, <span id="displayDadName" class="gold-gradient-text">אבא היקר!</span>
-      </h1>
-      <p class="text-slate-300 text-sm sm:text-base max-w-lg mx-auto leading-relaxed">
-        הכנו לך מתנה מכל הלב עם המון אהבה והערכה על מי שאתה בשבילנו!
-      </p>
-    </div>
-
-    <!-- כרטיס המתנה הדיגיטלי (3D Card) -->
-    <div class="w-full max-w-md sm:max-w-lg perspective-1000 mb-8">
-      <div id="mainCard" class="gift-card relative rounded-3xl p-6 sm:p-8 gold-border shadow-2xl overflow-hidden cursor-pointer" onclick="handleCardClick(event)">
-        
-        <!-- אפקט הברקה -->
-        <div class="shimmer-effect"></div>
-
-        <!-- סרט מתנה אלכסוני מעוצב בפינה -->
-        <div class="absolute -top-1 -right-1 w-32 h-32 ribbon-wrap">
-          <div class="ribbon-badge text-center text-white text-[11px] font-bold py-1.5 w-44 absolute top-6 -right-8 rotate-45 shadow-lg tracking-wider uppercase">
-            VIP GIFT
-          </div>
-        </div>
-
-        <!-- ראש הכרטיס: לוגו BUYME + אייקון שבב -->
-        <div class="flex items-center justify-between mb-8">
-          <div class="flex items-center gap-3">
-            <div class="w-12 h-10 rounded-lg bg-gradient-to-tr from-amber-400 to-yellow-200 flex items-center justify-center shadow-inner text-slate-950 font-bold text-xs tracking-tighter border border-amber-200">
-              <i class="fa-solid fa-microchip text-xl text-amber-900 opacity-80"></i>
+    <div class="wrapper">
+        <main class="gift-card">
+            
+            <div class="badge">
+                <span>✨</span>
+                <span>כרטיס מתנה דיגיטלי</span>
             </div>
-            <div>
-              <p class="text-[10px] text-amber-300/80 font-bold tracking-widest uppercase">GIFT VOUCHER</p>
-              <p class="text-xs text-slate-300">כרטיס מתנה מיוחד</p>
+
+            <div class="card-avatar-wrapper">
+                <div class="card-avatar-ring"></div>
+                <img src="WhatsApp Image 2026-09-13 at 20.50.10.jpeg" alt="משפחה" class="card-avatar">
             </div>
-          </div>
 
-          <!-- סמל BUYME מסוגנן -->
-          <div class="bg-white/10 px-3.5 py-1.5 rounded-full border border-white/20 backdrop-blur-sm flex items-center gap-1.5">
-            <span class="w-2.5 h-2.5 rounded-full bg-rose-500 animate-ping"></span>
-            <span class="text-xs font-extrabold tracking-wider text-rose-300">BUYME</span>
-          </div>
-        </div>
+            <h1 class="title">לאבא היקר שלנו!</h1>
+            <div class="subtitle">אוהבים ומעריכים מכל הלב ❤️</div>
 
-        <!-- מרכז הכרטיס: שם הנמען ומספר כרטיס סמלי -->
-        <div class="mb-8 space-y-2">
-          <p class="text-xs text-amber-200/70 font-medium">מוגש בהערכה ענקית ל:</p>
-          <h2 id="cardOwnerName" class="text-2xl sm:text-3xl font-extrabold text-white tracking-wide">
-            אבא האחד והיחיד ❤️
-          </h2>
-          <div class="flex items-center gap-2 pt-2 text-slate-400 font-mono text-xs sm:text-sm tracking-widest direction-ltr">
-            <span>••••</span>
-            <span>••••</span>
-            <span>••••</span>
-            <span class="text-amber-300 font-bold">2026</span>
-          </div>
-        </div>
+            <div class="greeting-container">
+                <p class="greeting-text">
+תודה על כל מה שאתה עושה בשבילנו תמיד.
+מאחלים לך המון בריאות, שמחה, נחת והגשמת כל החלומות!
+הכנו לך מתנה קטנה ומפנקת שתעשה לך טוב על הלב.
+אוהבים אותך הכי בעולם!
+                </p>
+            </div>
 
-        <!-- תחתית הכרטיס: כפתור המימוש העיקרי ל-BUYME -->
-        <div class="pt-4 border-t border-slate-700/60 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <div class="text-center sm:text-right">
-            <span class="text-[11px] text-slate-400 block">סטטוס כרטיס:</span>
-            <span class="text-xs font-bold text-emerald-400 flex items-center justify-center sm:justify-start gap-1.5">
-              <i class="fa-solid fa-circle-check text-[10px]"></i> מוכן למימוש מיידי
-            </span>
-          </div>
+            <a href="https://buyme.co.il/G5uan728dpsjj0" 
+               id="redeem-btn" 
+               class="redeem-btn" 
+               target="_blank" 
+               rel="noopener noreferrer"
+               onclick="launchCelebration()">
+                <span>🎁 למימוש ה-GIFTCARD לחץ כאן</span>
+            </a>
 
-          <!-- כפתור המעבר לשובר האמיתי -->
-          <a id="buymeLinkBtn" 
-             href="https://buyme.co.il" 
-             target="_blank" 
-             rel="noopener noreferrer"
-             onclick="triggerMassiveConfetti(event)"
-             class="gold-glow-btn w-full sm:w-auto text-slate-950 font-extrabold text-sm sm:text-base px-6 py-3 rounded-2xl flex items-center justify-center gap-2.5 cursor-pointer no-underline group shadow-lg active:scale-95">
-            <span>למימוש השובר שלך</span>
-            <i class="fa-solid fa-arrow-left text-xs transition-transform group-hover:-translate-x-1"></i>
-          </a>
-        </div>
+            <div class="buyme-badge">שובר דיגיטלי לרכישה ב-BUYME</div>
 
-      </div>
-      
-      <p class="text-center text-xs text-slate-400 mt-2.5 flex items-center justify-center gap-1.5">
-        <i class="fa-solid fa-arrow-pointer text-amber-400/80"></i>
-        <span>לחצו על הכפתור כדי לעבור ישירות למימוש השובר ב-BUYME</span>
-      </p>
+        </main>
     </div>
 
-    <!-- בלוק הברכה המשפחתית ברקע עם תחושת זכוכית יוקרתית -->
-    <div class="w-full max-w-2xl bg-slate-900/65 backdrop-blur-xl border border-white/15 rounded-3xl p-6 sm:p-8 shadow-2xl relative">
-      <div class="absolute -top-3 right-8 px-3 py-0.5 rounded-full bg-amber-500 text-slate-950 font-bold text-xs uppercase tracking-wider flex items-center gap-1 shadow-md">
-        <i class="fa-solid fa-heart text-[10px]"></i>
-        <span>ברכה מהלב</span>
-      </div>
-
-      <div class="space-y-4">
-        <div class="flex items-center gap-2 text-amber-300">
-          <i class="fa-solid fa-quote-right text-2xl opacity-60"></i>
-          <h3 class="serif-title text-xl sm:text-2xl font-bold text-white">לאבא המדהים שלנו,</h3>
-        </div>
-
-        <p id="displayBlessingText" class="text-slate-200 text-base sm:text-lg leading-relaxed whitespace-pre-line font-light">
-          תודה על החום, התמיכה, החוכמה והצחוק שאתה מכניס לחיים של כולנו בכל יום מחדש.
-          אתה העוגן של הבית וההשראה הכי גדולה שלנו.
-          רצינו לפנק אותך במתנה שתבחר בעצמך בדיוק מה שעושה לך שמח וממלא את הלב!
-          מאחלים לך המון בריאות, שמחה, נחת והגשמת כל החלומות.
-        </p>
-
-        <div class="pt-3 border-t border-slate-700/60 flex items-center justify-between text-xs sm:text-sm text-amber-200 font-semibold">
-          <span id="displayFamilySign">אוהבים אותך עד השמיים ובחזרה, כל המשפחה ❤️</span>
-          <button onclick="triggerMassiveConfetti()" class="text-slate-400 hover:text-amber-300 transition-colors p-1" title="עוד קונפטי!">
-            🎉
-          </button>
-        </div>
-      </div>
-    </div>
-
-  </main>
-
-  <!-- סרגל תחתון קצר -->
-  <footer class="w-full py-4 text-center text-xs text-slate-500 z-10">
-    <p>נשלח באהבה ענקית • כרטיס מתנה דיגיטלי אישי</p>
-  </footer>
-
-  <!-- מודל התאמה אישית (Settings Modal) להחלפת הקישור, תמונת המשפחה והברכה -->
-  <div id="settingsModal" class="fixed inset-0 bg-black/80 backdrop-blur-md z-50 flex items-center justify-center p-4 hidden">
-    <div class="bg-slate-900 border border-amber-500/40 rounded-3xl w-full max-w-lg p-6 sm:p-7 shadow-2xl relative text-right">
-      
-      <div class="flex items-center justify-between pb-4 mb-4 border-b border-slate-800">
-        <div class="flex items-center gap-2 text-amber-300 font-bold text-lg">
-          <i class="fa-solid fa-sliders"></i>
-          <span>התאמת פרטי הכרטיס והקישור</span>
-        </div>
-        <button onclick="toggleSettingsModal()" class="w-8 h-8 rounded-full bg-slate-800 hover:bg-slate-700 text-slate-300 flex items-center justify-center transition-colors">
-          <i class="fa-solid fa-xmark"></i>
-        </button>
-      </div>
-
-      <div class="space-y-4 max-h-[70vh] overflow-y-auto px-1">
-        
-        <!-- קישור BUYME שקיבלת -->
-        <div>
-          <label class="block text-xs font-bold text-amber-300 mb-1">
-            🔗 קישור המימוש של BUYME שקיבלת:
-          </label>
-          <input type="url" id="inputBuymeUrl" 
-                 placeholder="https://buyme.co.il/voucher/..." 
-                 class="w-full bg-slate-950 border border-slate-700 focus:border-amber-400 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none transition-colors direction-ltr">
-          <span class="text-[11px] text-slate-400">הדביקו כאן את הקישור שקיבלתם מ-BUYME כדי שהכפתור יפתח ישירות את השובר.</span>
-        </div>
-
-        <!-- שם הנמען -->
-        <div>
-          <label class="block text-xs font-bold text-amber-300 mb-1">
-            👤 שם אבא או פנייה אישית:
-          </label>
-          <input type="text" id="inputDadName" 
-                 placeholder="אבא היקר / אבא האחד והיחיד" 
-                 class="w-full bg-slate-950 border border-slate-700 focus:border-amber-400 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none transition-colors">
-        </div>
-
-        <!-- תמונת רקע משפחתית -->
-        <div>
-          <label class="block text-xs font-bold text-amber-300 mb-1">
-            🖼️ תמונה משפחתית לרקע:
-          </label>
-          <div class="flex flex-col gap-2">
-            <input type="file" id="inputPhotoFile" accept="image/*" onchange="handleImageUpload(event)"
-                   class="w-full text-xs text-slate-400 file:ml-3 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-amber-500/20 file:text-amber-300 hover:file:bg-amber-500/30 cursor-pointer">
-            <p class="text-[11px] text-slate-400">או הדביקו קישור ישיר לתמונה באינטרנט:</p>
-            <input type="url" id="inputPhotoUrl" 
-                   placeholder="https://... תמונה משפחתית ברשת" 
-                   class="w-full bg-slate-950 border border-slate-700 focus:border-amber-400 rounded-xl px-3.5 py-2 text-xs text-white focus:outline-none transition-colors direction-ltr">
-          </div>
-        </div>
-
-        <!-- טקסט הברכה -->
-        <div>
-          <label class="block text-xs font-bold text-amber-300 mb-1">
-            ✍️ טקסט הברכה:
-          </label>
-          <textarea id="inputBlessing" rows="4" 
-                    class="w-full bg-slate-950 border border-slate-700 focus:border-amber-400 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none transition-colors"></textarea>
-        </div>
-
-        <!-- חתימה -->
-        <div>
-          <label class="block text-xs font-bold text-amber-300 mb-1">
-            ❤️ חתימת המשפחה:
-          </label>
-          <input type="text" id="inputFamilySign" 
-                 placeholder="אוהבים אותך, כל המשפחה" 
-                 class="w-full bg-slate-950 border border-slate-700 focus:border-amber-400 rounded-xl px-3.5 py-2.5 text-sm text-white focus:outline-none transition-colors">
-        </div>
-
-      </div>
-
-      <!-- כפתורי פעולה במודל -->
-      <div class="mt-6 pt-4 border-t border-slate-800 flex items-center justify-end gap-3">
-        <button onclick="toggleSettingsModal()" class="px-4 py-2 rounded-xl text-xs text-slate-400 hover:text-white transition-colors">
-          ביטול
-        </button>
-        <button onclick="saveCustomDetails()" class="bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-5 py-2.5 rounded-xl text-xs shadow-lg transition-all active:scale-95">
-          שמור שינויים בכרטיס
-        </button>
-      </div>
-
-    </div>
-  </div>
-
-  <!-- הודעת טיפ קטנה לשיתוף בוואטסאפ (Toast) -->
-  <div id="toastMessage" class="fixed bottom-6 right-6 bg-slate-900 border border-amber-400/50 text-white px-4 py-3 rounded-2xl shadow-2xl flex items-center gap-3 transform translate-y-24 opacity-0 transition-all duration-300 z-50 text-xs">
-    <i class="fa-solid fa-circle-check text-amber-400 text-base"></i>
-    <span id="toastText">השינויים נשמרו בהצלחה!</span>
-  </div>
-
-  <script>
-    // נתוני ברירת מחדל
-    let cardState = {
-      dadName: "אבא היקר",
-      cardTitle: "אבא האחד והיחיד ❤️",
-      buymeUrl: "https://buyme.co.il",
-      familyPhoto: "https://images.unsplash.com/photo-1511895426328-dc8714191300?q=80&w=2000&auto=format&fit=crop",
-      blessing: "תודה על החום, התמיכה, החוכמה והצחוק שאתה מכניס לחיים של כולנו בכל יום מחדש.\nאתה העוגן של הבית וההשראה הכי גדולה שלנו.\nרצינו לפנק אותך במתנה שתבחר בעצמך בדיוק מה שעושה לך שמח וממלא את הלב!\nמאחלים לך המון בריאות, שמחה, נחת והגשמת כל החלומות.",
-      familySign: "אוהבים אותך עד השמיים ובחזרה, כל המשפחה ❤️"
-    };
-
-    // טעינת נתונים שמורים מ-localStorage אם קיימים
-    window.addEventListener('DOMContentLoaded', () => {
-      const saved = localStorage.getItem('dad_giftcard_data');
-      if (saved) {
-        try {
-          cardState = { ...cardState, ...JSON.parse(saved) };
-        } catch (e) {
-          console.error("Failed to parse saved state", e);
-        }
-      }
-      renderCardDetails();
-      
-      // אפקט תלת מימד לפי תנועת עכבר
-      setup3DTilt();
-
-      // הפעלת קונפטי פתיחה מרגש
-      setTimeout(() => {
-        triggerMassiveConfetti();
-      }, 700);
-    });
-
-    // עדכון האלמנטים בדף בהתאם למצב
-    function renderCardDetails() {
-      document.getElementById('displayDadName').textContent = cardState.dadName;
-      document.getElementById('cardOwnerName').textContent = cardState.cardTitle;
-      document.getElementById('buymeLinkBtn').href = cardState.buymeUrl;
-      document.getElementById('displayBlessingText').textContent = cardState.blessing;
-      document.getElementById('displayFamilySign').textContent = cardState.familySign;
-      
-      const bgElement = document.getElementById('familyBackground');
-      bgElement.style.backgroundImage = `url('${cardState.familyPhoto}')`;
-
-      // עדכון שדות הקלט במודל
-      document.getElementById('inputDadName').value = cardState.dadName;
-      document.getElementById('inputBuymeUrl').value = cardState.buymeUrl;
-      document.getElementById('inputPhotoUrl').value = cardState.familyPhoto.startsWith('data:') ? '' : cardState.familyPhoto;
-      document.getElementById('inputBlessing').value = cardState.blessing;
-      document.getElementById('inputFamilySign').value = cardState.familySign;
-    }
-
-    // פתיחה וסגירה של מודל ההגדרות
-    function toggleSettingsModal() {
-      const modal = document.getElementById('settingsModal');
-      modal.classList.toggle('hidden');
-    }
-
-    // טיפול בהעלאת תמונה מקומית של המשפחה
-    function handleImageUpload(e) {
-      const file = e.target.files[0];
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = function(event) {
-          cardState.familyPhoto = event.target.result;
-          document.getElementById('familyBackground').style.backgroundImage = `url('${cardState.familyPhoto}')`;
-        };
-        reader.readAsDataURL(file);
-      }
-    }
-
-    // שמירת הנתונים
-    function saveCustomDetails() {
-      const dadName = document.getElementById('inputDadName').value.trim();
-      const buymeUrl = document.getElementById('inputBuymeUrl').value.trim();
-      const photoUrl = document.getElementById('inputPhotoUrl').value.trim();
-      const blessing = document.getElementById('inputBlessing').value.trim();
-      const familySign = document.getElementById('inputFamilySign').value.trim();
-
-      if (dadName) {
-        cardState.dadName = dadName;
-        cardState.cardTitle = dadName + " ❤️";
-      }
-      if (buymeUrl) cardState.buymeUrl = buymeUrl;
-      if (photoUrl) cardState.familyPhoto = photoUrl;
-      if (blessing) cardState.blessing = blessing;
-      if (familySign) cardState.familySign = familySign;
-
-      // שמירה ב-localStorage
-      try {
-        localStorage.setItem('dad_giftcard_data', JSON.stringify(cardState));
-      } catch (err) {
-        console.warn("Storage quota exceeded or private browsing", err);
-      }
-
-      renderCardDetails();
-      toggleSettingsModal();
-      showToast("הכרטיס עודכן ונשמר בהצלחה!");
-      triggerMassiveConfetti();
-    }
-
-    // הודעת חיווי קצרה
-    function showToast(msg) {
-      const toast = document.getElementById('toastMessage');
-      document.getElementById('toastText').textContent = msg;
-      toast.classList.remove('translate-y-24', 'opacity-0');
-      setTimeout(() => {
-        toast.classList.add('translate-y-24', 'opacity-0');
-      }, 3500);
-    }
-
-    // פיצוץ קונפטי חגיגי
-    function triggerMassiveConfetti(event) {
-      playCelebrationChime();
-      
-      const count = 200;
-      const defaults = {
-        origin: { y: 0.7 }
-      };
-
-      function fire(particleRatio, opts) {
-        confetti(Object.assign({}, defaults, opts, {
-          particleCount: Math.floor(count * particleRatio),
-          colors: ['#ECC94B', '#F6E05E', '#D69E2E', '#3B82F6', '#EF4444', '#10B981']
-        }));
-      }
-
-      fire(0.25, {
-        spread: 26,
-        startVelocity: 55,
-      });
-      fire(0.2, {
-        spread: 60,
-      });
-      fire(0.35, {
-        spread: 100,
-        decay: 0.91,
-        scalar: 0.8
-      });
-      fire(0.1, {
-        spread: 120,
-        startVelocity: 25,
-        decay: 0.92,
-        scalar: 1.2
-      });
-      fire(0.1, {
-        spread: 120,
-        startVelocity: 45,
-      });
-    }
-
-    function handleCardClick(e) {
-      // אם הלחיצה לא הייתה ישירות על כפתור הלינק
-      if (!e.target.closest('a')) {
-        triggerMassiveConfetti();
-      }
-    }
-
-    // אפקט הטיה תלת-ממדית (3D Tilt) עם תנועת עכבר ומגע
-    function setup3DTilt() {
-      const card = document.getElementById('mainCard');
-      if (!card) return;
-
-      const handleMove = (x, y, rect) => {
-        const centerX = rect.left + rect.width / 2;
-        const centerY = rect.top + rect.height / 2;
-        const rotateX = ((y - centerY) / (rect.height / 2)) * -10;
-        const rotateY = ((x - centerX) / (rect.width / 2)) * 10;
-        card.style.transform = `perspective(1000px) rotateX(${rotateX.toFixed(2)}deg) rotateY(${rotateY.toFixed(2)}deg) scale3d(1.02, 1.02, 1.02)`;
-      };
-
-      card.addEventListener('mousemove', (e) => {
-        const rect = card.getBoundingClientRect();
-        handleMove(e.clientX, e.clientY, rect);
-      });
-
-      card.addEventListener('mouseleave', () => {
-        card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
-      });
-
-      // תמיכה במגע במסכי מגע (Mobile)
-      card.addEventListener('touchmove', (e) => {
-        if (e.touches.length > 0) {
-          const touch = e.touches[0];
-          const rect = card.getBoundingClientRect();
-          handleMove(touch.clientX, touch.clientY, rect);
-        }
-      }, { passive: true });
-
-      card.addEventListener('touchend', () => {
-        card.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)';
-      });
-    }
-
-    // הפקת מנגינת פעמונים חגיגית בעזרת Web Audio API ללא צורך בקובץ חיצוני
-    function playCelebrationChime() {
-      try {
-        const AudioContext = window.AudioContext || window.webkitAudioContext;
-        if (!AudioContext) return;
-        
-        const ctx = new AudioContext();
-        if (ctx.state === 'suspended') {
-          ctx.resume();
+    <script>
+        function launchCelebration() {
+            if (typeof confetti === 'function') {
+                confetti({
+                    particleCount: 110,
+                    spread: 85,
+                    origin: { y: 0.7 },
+                    colors: ['#e5b95c', '#ffffff', '#ffd700', '#ff6b6b']
+                });
+            }
         }
 
-        // אקורד חגיגי ומעודן (E major arpeggio / Pentatonic chime)
-        const notes = [523.25, 659.25, 783.99, 1046.50, 1318.51];
-        notes.forEach((freq, idx) => {
-          const osc = ctx.createOscillator();
-          const gain = ctx.createGain();
-
-          osc.type = 'triangle';
-          osc.frequency.setValueAtTime(freq, ctx.currentTime + idx * 0.08);
-
-          gain.gain.setValueAtTime(0, ctx.currentTime + idx * 0.08);
-          gain.gain.linearRampToValueAtTime(0.25, ctx.currentTime + idx * 0.08 + 0.04);
-          gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + idx * 0.08 + 1.2);
-
-          osc.connect(gain);
-          gain.connect(ctx.destination);
-
-          osc.start(ctx.currentTime + idx * 0.08);
-          osc.stop(ctx.currentTime + idx * 0.08 + 1.2);
+        const card = document.querySelector('.gift-card');
+        document.addEventListener('mousemove', (e) => {
+            const { innerWidth, innerHeight } = window;
+            const x = (e.clientX / innerWidth - 0.5) * 12;
+            const y = (e.clientY / innerHeight - 0.5) * -12;
+            card.style.transform = `rotateY(${x}deg) rotateX(${y}deg)`;
         });
-      } catch (err) {
-        console.warn("Audio Context not allowed yet:", err);
-      }
-    }
-  </script>
+    </script>
 </body>
 </html>
