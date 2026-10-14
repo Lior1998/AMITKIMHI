@@ -2,289 +2,290 @@
 <html lang="he" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>מתנה מיוחדת לאבא היקר!</title>
 
-    <!-- תגיות תצוגה מקדימה לוואטסאפ -->
+    <!-- תצוגה מקדימה לוואטסאפ -->
     <meta property="og:title" content="מתנה מיוחדת לאבא היקר שלנו! 🎁" />
-    <meta property="og:description" content="נכנסים לראות את כרטיס המתנה והברכה המשפחתית שהכנו במיוחד בשבילך ❤️" />
+    <meta property="og:description" content="הכנו לך כרטיס מתנה דיגיטלי מכל הלב - לחץ לצפייה ולמימוש ❤️" />
     <meta property="og:image" content="WhatsApp Image 2026-09-13 at 20.50.10.jpeg" />
     <meta property="og:type" content="website" />
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@300;400;600;700;800&family=Rubik:wght@500;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700;800&family=Rubik:wght@600;700;900&display=swap" rel="stylesheet">
 
     <!-- ספריית קונפטי -->
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
     <style>
         :root {
-            --primary-gold: #e5b95c;
-            --primary-gold-dark: #b8860b;
-            --bg-dark: #0f111a;
-            --card-surface: rgba(18, 22, 36, 0.75);
-            --border-glass: rgba(229, 185, 92, 0.35);
-            --text-main: #f8fafc;
-            --text-dim: #cbd5e1;
-            --accent-glow: rgba(229, 185, 92, 0.45);
+            --gold: #f4c453;
+            --gold-glow: rgba(244, 196, 83, 0.4);
+            --card-bg: rgba(15, 18, 28, 0.82);
+            --border: rgba(244, 196, 83, 0.35);
         }
 
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            user-select: none;
             -webkit-tap-highlight-color: transparent;
         }
 
-        body {
+        html, body {
+            height: 100%;
+            overflow: hidden;
             font-family: 'Assistant', sans-serif;
-            min-height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: var(--bg-dark);
-            color: var(--text-main);
-            overflow-x: hidden;
-            position: relative;
-            padding: 24px 16px;
+            background-color: #0d0f17;
+            color: #ffffff;
         }
 
-        /* תמונת הרקע המשפחתית */
-        #bg-layer {
+        /* התמונה המשפחתית כרקע מלא למסך הטלפון */
+        .mobile-bg {
             position: fixed;
-            inset: -20px;
+            inset: 0;
             background-image: url('WhatsApp Image 2026-09-13 at 20.50.10.jpeg');
             background-size: cover;
             background-position: center center;
-            filter: blur(12px) brightness(0.38) saturate(1.2);
-            transform: scale(1.05);
-            z-index: 0;
-        }
-
-        #bg-overlay {
-            position: fixed;
-            inset: 0;
-            background: radial-gradient(circle at center, rgba(15, 17, 26, 0.4) 0%, rgba(10, 12, 18, 0.88) 100%);
+            background-repeat: no-repeat;
             z-index: 1;
         }
 
-        /* מיכל הכרטיס */
-        .wrapper {
-            position: relative;
-            z-index: 10;
-            width: 100%;
-            max-width: 480px;
-            perspective: 1200px;
-            margin: auto;
+        /* שכבת החשכה עדינה להדגשת התמונה והטקסט */
+        .mobile-overlay {
+            position: fixed;
+            inset: 0;
+            background: linear-gradient(180deg, 
+                rgba(10, 12, 20, 0.45) 0%, 
+                rgba(10, 12, 20, 0.7) 50%, 
+                rgba(10, 12, 20, 0.9) 100%
+            );
+            z-index: 2;
         }
 
-        .gift-card {
+        /* מבנה הנייד */
+        .screen-container {
             position: relative;
-            background: var(--card-surface);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1.5px solid var(--border-glass);
+            z-index: 10;
+            height: 100dvh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px 16px;
+            max-width: 420px;
+            margin: 0 auto;
+        }
+
+        /* כרטיס המתנה הדיגיטלי המותאם למובייל */
+        .gift-card {
+            width: 100%;
+            background: var(--card-bg);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1.5px solid var(--border);
             border-radius: 28px;
-            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.65), 0 0 35px var(--accent-glow);
-            padding: 38px 28px 32px;
+            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6), 0 0 30px var(--gold-glow);
+            padding: 26px 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
             text-align: center;
-            overflow: hidden;
-            transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.4s ease;
-        }
-
-        .gift-card:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 30px 70px rgba(0, 0, 0, 0.75), 0 0 45px rgba(229, 185, 92, 0.6);
-        }
-
-        .badge {
-            background: linear-gradient(135deg, rgba(229, 185, 92, 0.25), rgba(229, 185, 92, 0.08));
-            border: 1px solid var(--border-glass);
-            border-radius: 50px;
-            padding: 6px 18px;
-            font-size: 0.85rem;
-            font-weight: 700;
-            color: var(--primary-gold);
-            letter-spacing: 0.8px;
-            margin-bottom: 18px;
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-        }
-
-        /* תמונת המשפחה במרכז */
-        .card-avatar-wrapper {
             position: relative;
-            width: 130px;
-            height: 130px;
-            margin-bottom: 20px;
+            animation: cardAppear 0.8s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        .card-avatar {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 3px solid var(--primary-gold);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5), 0 0 20px var(--accent-glow);
+        @keyframes cardAppear {
+            from {
+                opacity: 0;
+                transform: translateY(30px) scale(0.96);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
         }
 
-        .card-avatar-ring {
+        /* תג עליון */
+        .badge {
+            background: rgba(244, 196, 83, 0.15);
+            border: 1px solid var(--gold);
+            border-radius: 20px;
+            padding: 5px 14px;
+            font-size: 0.82rem;
+            font-weight: 700;
+            color: var(--gold);
+            margin-bottom: 14px;
+            letter-spacing: 0.5px;
+        }
+
+        /* עיגול המתנה היוקרתי */
+        .gift-icon-wrapper {
+            position: relative;
+            width: 90px;
+            height: 90px;
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .gift-icon-ring {
             position: absolute;
-            inset: -6px;
+            inset: 0;
             border-radius: 50%;
-            border: 1.5px dashed var(--primary-gold);
-            animation: spinRing 24s linear infinite;
+            border: 2px dashed var(--gold);
+            animation: rotateGift 20s linear infinite;
         }
 
-        @keyframes spinRing {
+        .gift-icon-circle {
+            width: 76px;
+            height: 76px;
+            background: radial-gradient(circle, #2a2d3d 0%, #151722 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5), inset 0 0 12px var(--gold-glow);
+            border: 2px solid var(--gold);
+            animation: bounceGift 2.4s ease-in-out infinite;
+        }
+
+        @keyframes rotateGift {
             100% { transform: rotate(360deg); }
         }
 
-        /* כותרות וטקסט */
+        @keyframes bounceGift {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.08); }
+        }
+
+        /* כותרות */
         .title {
             font-family: 'Rubik', sans-serif;
-            font-size: 2rem;
+            font-size: 1.8rem;
             font-weight: 900;
-            background: linear-gradient(135deg, #ffffff 30%, var(--primary-gold) 100%);
+            line-height: 1.2;
+            background: linear-gradient(135deg, #ffffff 40%, var(--gold) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin-bottom: 6px;
+            margin-bottom: 4px;
         }
 
         .subtitle {
-            font-size: 1.05rem;
-            color: var(--primary-gold);
+            font-size: 1rem;
+            color: var(--gold);
             font-weight: 600;
-            margin-bottom: 18px;
+            margin-bottom: 14px;
         }
 
-        .greeting-container {
-            position: relative;
-            width: 100%;
-            background: rgba(255, 255, 255, 0.04);
+        /* תיבת הברכה */
+        .greeting-box {
+            background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 18px;
-            padding: 18px 20px;
-            margin-bottom: 26px;
+            border-radius: 16px;
+            padding: 14px 16px;
+            margin-bottom: 18px;
+            width: 100%;
         }
 
         .greeting-text {
-            font-size: 1.05rem;
-            line-height: 1.65;
-            color: var(--text-dim);
-            font-weight: 400;
+            font-size: 0.98rem;
+            line-height: 1.55;
+            color: #e2e8f0;
             white-space: pre-line;
         }
 
-        /* כפתור מימוש BUYME */
-        .redeem-btn {
-            position: relative;
-            display: inline-flex;
+        /* כפתור מימוש BUYME ענק ומותאם לנייד */
+        .buyme-btn {
+            width: 100%;
+            display: flex;
             align-items: center;
             justify-content: center;
-            gap: 12px;
-            width: 100%;
-            padding: 17px 28px;
+            gap: 10px;
+            padding: 16px 20px;
+            background: linear-gradient(135deg, #ffe082 0%, #f4c453 50%, #c49320 100%);
+            color: #11141e;
             font-family: 'Rubik', sans-serif;
-            font-size: 1.25rem;
-            font-weight: 700;
-            color: #12151f;
-            background: linear-gradient(135deg, #fce09b 0%, #e5b95c 50%, #b8860b 100%);
-            border: none;
-            border-radius: 18px;
-            cursor: pointer;
+            font-size: 1.2rem;
+            font-weight: 800;
             text-decoration: none;
-            box-shadow: 0 12px 28px rgba(229, 185, 92, 0.45), 0 0 25px rgba(229, 185, 92, 0.3);
-            transition: all 0.3s ease;
+            border-radius: 18px;
+            box-shadow: 0 10px 25px rgba(244, 196, 83, 0.4), 0 0 15px rgba(244, 196, 83, 0.2);
+            transition: transform 0.15s ease, box-shadow 0.15s ease;
+            position: relative;
+            overflow: hidden;
         }
 
-        .redeem-btn:hover {
-            transform: scale(1.02);
-            box-shadow: 0 16px 36px rgba(229, 185, 92, 0.6), 0 0 35px rgba(229, 185, 92, 0.5);
-            color: #000;
+        .buyme-btn:active {
+            transform: scale(0.96);
         }
 
-        .redeem-btn:active {
-            transform: scale(0.98);
-        }
-
-        .buyme-badge {
-            margin-top: 14px;
-            font-size: 0.85rem;
-            color: rgba(255, 255, 255, 0.45);
+        .buyme-subtext {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.55);
+            margin-top: 10px;
         }
     </style>
 </head>
 <body>
 
-    <div id="bg-layer"></div>
-    <div id="bg-overlay"></div>
+    <!-- תמונת הרקע המשפחתית שלכם מאחורה -->
+    <div class="mobile-bg"></div>
+    <div class="mobile-overlay"></div>
 
-    <div class="wrapper">
-        <main class="gift-card">
+    <div class="screen-container">
+        <div class="gift-card">
             
-            <div class="badge">
-                <span>✨</span>
-                <span>כרטיס מתנה דיגיטלי</span>
-            </div>
+            <div class="badge">✨ כרטיס מתנה דיגיטלי אישי ✨</div>
 
-            <div class="card-avatar-wrapper">
-                <div class="card-avatar-ring"></div>
-                <img src="WhatsApp Image 2026-09-13 at 20.50.10.jpeg" alt="משפחה" class="card-avatar">
+            <!-- עיגול המתנה -->
+            <div class="gift-icon-wrapper">
+                <div class="gift-icon-ring"></div>
+                <div class="gift-icon-circle">🎁</div>
             </div>
 
             <h1 class="title">לאבא היקר שלנו!</h1>
             <div class="subtitle">אוהבים ומעריכים מכל הלב ❤️</div>
 
-            <div class="greeting-container">
+            <div class="greeting-box">
                 <p class="greeting-text">
 תודה על כל מה שאתה עושה בשבילנו תמיד.
-מאחלים לך המון בריאות, שמחה, נחת והגשמת כל החלומות!
-הכנו לך מתנה קטנה ומפנקת שתעשה לך טוב על הלב.
+מאחלים לך המון בריאות, שמחה והגשמת חלומות!
+הכנו לך מתנה מפנקת מכל הלב.
 אוהבים אותך הכי בעולם!
                 </p>
             </div>
 
+            <!-- כפתור למימוש ה-BUYME -->
             <a href="https://buyme.co.il/G5uan728dpsjj0" 
-               id="redeem-btn" 
-               class="redeem-btn" 
+               class="buyme-btn" 
                target="_blank" 
-               rel="noopener noreferrer"
-               onclick="launchCelebration()">
-                <span>🎁 למימוש ה-GIFTCARD לחץ כאן</span>
+               rel="noopener noreferrer" 
+               onclick="triggerConfetti()">
+                <span>למימוש ה-GIFTCARD 🎁</span>
             </a>
 
-            <div class="buyme-badge">שובר דיגיטלי לרכישה ב-BUYME</div>
+            <div class="buyme-subtext">שובר אישי למימוש ב-BUYME</div>
 
-        </main>
+        </div>
     </div>
 
     <script>
-        function launchCelebration() {
+        // קונפטי חגיגי בלחיצה
+        function triggerConfetti() {
             if (typeof confetti === 'function') {
                 confetti({
-                    particleCount: 110,
-                    spread: 85,
-                    origin: { y: 0.7 },
-                    colors: ['#e5b95c', '#ffffff', '#ffd700', '#ff6b6b']
+                    particleCount: 120,
+                    spread: 80,
+                    origin: { y: 0.75 },
+                    colors: ['#f4c453', '#ffffff', '#ffd54f', '#ff5252']
                 });
             }
         }
-
-        const card = document.querySelector('.gift-card');
-        document.addEventListener('mousemove', (e) => {
-            const { innerWidth, innerHeight } = window;
-            const x = (e.clientX / innerWidth - 0.5) * 12;
-            const y = (e.clientY / innerHeight - 0.5) * -12;
-            card.style.transform = `rotateY(${x}deg) rotateX(${y}deg)`;
-        });
     </script>
 </body>
 </html>
