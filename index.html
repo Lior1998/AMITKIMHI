@@ -2,7 +2,7 @@
 <html lang="he" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>מתנה מיוחדת לאבא היקר!</title>
 
     <!-- תצוגה מקדימה לוואטסאפ -->
@@ -16,15 +16,15 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Assistant:wght@400;600;700;800&family=Rubik:wght@600;700;900&display=swap" rel="stylesheet">
 
-    <!-- ספריית קונפטי -->
+    <!-- Canvas Confetti Library -->
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
 
     <style>
         :root {
             --gold: #f4c453;
-            --gold-glow: rgba(244, 196, 83, 0.4);
-            --card-bg: rgba(13, 16, 26, 0.88);
-            --border: rgba(244, 196, 83, 0.35);
+            --gold-glow: rgba(244, 196, 83, 0.35);
+            --card-bg: rgba(14, 17, 26, 0.92);
+            --border: rgba(244, 196, 83, 0.3);
         }
 
         * {
@@ -36,125 +36,112 @@
 
         html, body {
             height: 100%;
-            overflow: hidden;
-            font-family: 'Assistant', sans-serif;
-            background-color: #0b0d14;
-            color: #ffffff;
-        }
-
-        /* התמונה המשפחתית נקייה, חדה ומותאמת למסך */
-        .family-photo {
-            position: fixed;
-            inset: 0;
-            background-image: url('WhatsApp Image 2026-09-13 at 20.50.10.jpeg');
-            background-size: cover;
-            background-position: center top; /* שומר על הראשים והאנשים למעלה גלויים לגמרי */
-            background-repeat: no-repeat;
-            z-index: 1;
-            transition: transform 0.4s ease;
-        }
-
-        /* הצללה עדינה מאוד רק בחלק התחתון כדי שהכרטיס יבלוט */
-        .bottom-shade {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 60%;
-            background: linear-gradient(to top, rgba(8, 10, 16, 0.95) 0%, rgba(8, 10, 16, 0.4) 60%, transparent 100%);
-            z-index: 2;
-            pointer-events: none;
-        }
-
-        /* כפתור החלפה למסך מלא (הצג/הסתר תמונה נקייה) */
-        .view-toggle-btn {
-            position: fixed;
-            top: 18px;
-            left: 18px;
-            z-index: 30;
-            background: rgba(15, 18, 28, 0.75);
-            border: 1px solid var(--border);
-            color: var(--gold);
-            padding: 8px 14px;
-            border-radius: 30px;
-            font-family: 'Assistant', sans-serif;
-            font-size: 0.85rem;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            cursor: pointer;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
-            transition: transform 0.2s;
-        }
-
-        .view-toggle-btn:active {
-            transform: scale(0.95);
-        }
-
-        /* מעטפת התוכן של הנייד */
-        .screen-container {
-            position: relative;
-            z-index: 10;
             height: 100dvh;
+            width: 100%;
+            background-color: #080a10;
+            font-family: 'Assistant', sans-serif;
+            color: #ffffff;
+            overflow-x: hidden;
+        }
+
+        /* רקע עוטף מלא לאייפון ולמחשב */
+        .app-layout {
+            position: relative;
+            min-height: 100dvh;
             display: flex;
             flex-direction: column;
-            justify-content: flex-end; /* הכרטיס יושב למטה ולא מסתיר את התמונה */
-            padding: 16px 14px 24px;
-            max-width: 440px;
+            justify-content: space-between;
+            align-items: center;
+            padding: env(safe-area-inset-top, 14px) 14px env(safe-area-inset-bottom, 18px);
+            z-index: 5;
+        }
+
+        /* שכבת רקע מטושטשת למילוי שולי המסך */
+        .ambient-bg {
+            position: fixed;
+            inset: -20px;
+            background-image: url('WhatsApp Image 2026-09-13 at 20.50.10.jpeg');
+            background-size: cover;
+            background-position: center;
+            filter: blur(28px) brightness(0.28) saturate(1.2);
+            transform: scale(1.1);
+            z-index: 1;
+        }
+
+        .dark-vignette {
+            position: fixed;
+            inset: 0;
+            background: radial-gradient(circle at center, rgba(8, 10, 16, 0.3) 0%, rgba(5, 7, 11, 0.85) 100%);
+            z-index: 2;
+        }
+
+        /* אזור התמונה המרכזית - מבטיח שרואים את כולם בלי שייחתך אף אדם */
+        .photo-stage {
+            width: 100%;
+            max-width: 480px;
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 8px 0 14px;
+        }
+
+        .photo-frame {
+            position: relative;
+            width: 100%;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.7), 0 0 20px rgba(0,0,0,0.5);
+            border: 1.5px solid var(--border);
+            background: #000;
+        }
+
+        .photo-frame img {
+            width: 100%;
+            height: auto;
+            max-height: 44dvh; /* הגבלה שלא תתפוס יותר מדי גובה באייפון */
+            object-fit: contain; /* לא חותך אף אדם בצדדים */
+            display: block;
             margin: 0 auto;
         }
 
-        /* כרטיס תחתון צף ואלגנטי */
-        .bottom-card {
+        .photo-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(14, 17, 26, 0.75);
+            backdrop-filter: blur(8px);
+            border: 1px solid var(--border);
+            color: var(--gold);
+            font-size: 0.75rem;
+            font-weight: 700;
+            padding: 4px 10px;
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        /* כרטיס הברכה והמימוש */
+        .gift-sheet {
             width: 100%;
+            max-width: 480px;
             background: var(--card-bg);
-            backdrop-filter: blur(18px);
-            -webkit-backdrop-filter: blur(18px);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
             border: 1.5px solid var(--border);
-            border-radius: 26px;
-            padding: 20px 18px 18px;
-            box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.5), 0 0 25px var(--gold-glow);
+            border-radius: 22px;
+            padding: 16px 18px;
+            box-shadow: 0 10px 35px rgba(0, 0, 0, 0.6), 0 0 25px var(--gold-glow);
             text-align: center;
             display: flex;
             flex-direction: column;
             align-items: center;
-            transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.4s ease;
-        }
-
-        /* מצב הסתרה כדי לראות את התמונה המשפחתית במלואה */
-        .bottom-card.hidden {
-            transform: translateY(115%);
-            opacity: 0;
-            pointer-events: none;
-        }
-
-        /* אייקון מתנה צף מעל הכרטיס */
-        .floating-gift-badge {
-            width: 58px;
-            height: 58px;
-            margin-top: -46px;
-            margin-bottom: 10px;
-            background: radial-gradient(circle, #2d3142 0%, #151824 100%);
-            border: 2px solid var(--gold);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 28px;
-            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.5), 0 0 15px var(--gold-glow);
-            animation: bounce 2.2s ease-in-out infinite;
-        }
-
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-6px); }
         }
 
         .title {
             font-family: 'Rubik', sans-serif;
-            font-size: 1.55rem;
+            font-size: 1.45rem;
             font-weight: 900;
             background: linear-gradient(135deg, #ffffff 40%, var(--gold) 100%);
             -webkit-background-clip: text;
@@ -163,45 +150,44 @@
         }
 
         .subtitle {
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             color: var(--gold);
             font-weight: 600;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
         }
 
-        /* תיבת הברכה - קומפקטית כדי לא להעמיס על המסך */
         .greeting-box {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.09);
-            border-radius: 14px;
-            padding: 10px 14px;
-            margin-bottom: 15px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 12px;
+            padding: 9px 12px;
+            margin-bottom: 12px;
             width: 100%;
         }
 
         .greeting-text {
-            font-size: 0.95rem;
-            line-height: 1.5;
+            font-size: 0.92rem;
+            line-height: 1.45;
             color: #e2e8f0;
             white-space: pre-line;
         }
 
-        /* כפתור מימוש BUYME */
+        /* כפתור ה-BUYME */
         .buyme-btn {
             width: 100%;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 10px;
-            padding: 15px 18px;
+            gap: 8px;
+            padding: 14px 16px;
             background: linear-gradient(135deg, #ffe082 0%, #f4c453 50%, #c49320 100%);
             color: #10131d;
             font-family: 'Rubik', sans-serif;
-            font-size: 1.15rem;
+            font-size: 1.12rem;
             font-weight: 800;
             text-decoration: none;
-            border-radius: 16px;
-            box-shadow: 0 8px 22px rgba(244, 196, 83, 0.4);
+            border-radius: 14px;
+            box-shadow: 0 6px 20px rgba(244, 196, 83, 0.35);
             transition: transform 0.15s ease;
         }
 
@@ -210,30 +196,30 @@
         }
 
         .buyme-subtext {
-            font-size: 0.75rem;
-            color: rgba(255, 255, 255, 0.5);
-            margin-top: 8px;
+            font-size: 0.72rem;
+            color: rgba(255, 255, 255, 0.45);
+            margin-top: 6px;
         }
     </style>
 </head>
 <body>
 
-    <!-- תמונת הרקע המשפחתית ללא טשטוש במרכז -->
-    <div class="family-photo" id="photoBg"></div>
-    <div class="bottom-shade" id="bottomShade"></div>
+    <!-- שכבת רקע אמביינטית מותאמת לגודל המסך -->
+    <div class="ambient-bg"></div>
+    <div class="dark-vignette"></div>
 
-    <!-- כפתור צפייה בתמונה מלאה -->
-    <button class="view-toggle-btn" id="toggleBtn" onclick="toggleCard()">
-        <span id="toggleIcon">👁️</span>
-        <span id="toggleText">תמונה מלאה</span>
-    </button>
+    <main class="app-layout">
+        
+        <!-- אזור התמונה המשפחתית: כולם מוצגים במלואם, בלי שום גזירה -->
+        <section class="photo-stage">
+            <div class="photo-frame">
+                <span class="photo-badge">❤️ המשפחה</span>
+                <img src="WhatsApp Image 2026-09-13 at 20.50.10.jpeg" alt="תמונה משפחתית לאבא">
+            </div>
+        </section>
 
-    <div class="screen-container">
-        <!-- כרטיס תחתון שלא מסתיר את פני האנשים -->
-        <div class="bottom-card" id="mainCard">
-            
-            <div class="floating-gift-badge">🎁</div>
-
+        <!-- כרטיס הברכה וכפתור המימוש המותאמים למסך האייפון -->
+        <section class="gift-sheet">
             <h1 class="title">לאבא היקר שלנו!</h1>
             <div class="subtitle">אוהבים ומעריכים מכל הלב ❤️</div>
 
@@ -255,41 +241,18 @@
                 <span>למימוש ה-GIFTCARD 🎁</span>
             </a>
 
-            <div class="buyme-subtext">שובר אישי למימוש ב-BUYME</div>
+            <div class="buyme-subtext">שובר אישי לרכישה ב-BUYME</div>
+        </section>
 
-        </div>
-    </div>
+    </main>
 
     <script>
-        // פונקציית הסתרה/הצגה של הכרטיס כדי לראות את התמונה המלאה
-        let isCardVisible = true;
-        function toggleCard() {
-            const card = document.getElementById('mainCard');
-            const shade = document.getElementById('bottomShade');
-            const toggleText = document.getElementById('toggleText');
-            const toggleIcon = document.getElementById('toggleIcon');
-
-            isCardVisible = !isCardVisible;
-            if (isCardVisible) {
-                card.classList.remove('hidden');
-                shade.style.opacity = '1';
-                toggleText.innerText = 'תמונה מלאה';
-                toggleIcon.innerText = '👁️';
-            } else {
-                card.classList.add('hidden');
-                shade.style.opacity = '0';
-                toggleText.innerText = 'הצג כרטיס';
-                toggleIcon.innerText = '🎁';
-            }
-        }
-
-        // קונפטי בלחיצה על כפתור המימוש
         function triggerConfetti() {
             if (typeof confetti === 'function') {
                 confetti({
                     particleCount: 120,
                     spread: 80,
-                    origin: { y: 0.75 },
+                    origin: { y: 0.8 },
                     colors: ['#f4c453', '#ffffff', '#ffd54f', '#ff5252']
                 });
             }
