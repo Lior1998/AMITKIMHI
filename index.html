@@ -23,7 +23,7 @@
         :root {
             --gold: #f4c453;
             --gold-glow: rgba(244, 196, 83, 0.4);
-            --card-bg: rgba(15, 18, 28, 0.82);
+            --card-bg: rgba(13, 16, 26, 0.88);
             --border: rgba(244, 196, 83, 0.35);
         }
 
@@ -38,215 +38,201 @@
             height: 100%;
             overflow: hidden;
             font-family: 'Assistant', sans-serif;
-            background-color: #0d0f17;
+            background-color: #0b0d14;
             color: #ffffff;
         }
 
-        /* התמונה המשפחתית כרקע מלא למסך הטלפון */
-        .mobile-bg {
+        /* התמונה המשפחתית נקייה, חדה ומותאמת למסך */
+        .family-photo {
             position: fixed;
             inset: 0;
             background-image: url('WhatsApp Image 2026-09-13 at 20.50.10.jpeg');
             background-size: cover;
-            background-position: center center;
+            background-position: center top; /* שומר על הראשים והאנשים למעלה גלויים לגמרי */
             background-repeat: no-repeat;
             z-index: 1;
+            transition: transform 0.4s ease;
         }
 
-        /* שכבת החשכה עדינה להדגשת התמונה והטקסט */
-        .mobile-overlay {
+        /* הצללה עדינה מאוד רק בחלק התחתון כדי שהכרטיס יבלוט */
+        .bottom-shade {
             position: fixed;
-            inset: 0;
-            background: linear-gradient(180deg, 
-                rgba(10, 12, 20, 0.45) 0%, 
-                rgba(10, 12, 20, 0.7) 50%, 
-                rgba(10, 12, 20, 0.9) 100%
-            );
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 60%;
+            background: linear-gradient(to top, rgba(8, 10, 16, 0.95) 0%, rgba(8, 10, 16, 0.4) 60%, transparent 100%);
             z-index: 2;
+            pointer-events: none;
         }
 
-        /* מבנה הנייד */
+        /* כפתור החלפה למסך מלא (הצג/הסתר תמונה נקייה) */
+        .view-toggle-btn {
+            position: fixed;
+            top: 18px;
+            left: 18px;
+            z-index: 30;
+            background: rgba(15, 18, 28, 0.75);
+            border: 1px solid var(--border);
+            color: var(--gold);
+            padding: 8px 14px;
+            border-radius: 30px;
+            font-family: 'Assistant', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+            transition: transform 0.2s;
+        }
+
+        .view-toggle-btn:active {
+            transform: scale(0.95);
+        }
+
+        /* מעטפת התוכן של הנייד */
         .screen-container {
             position: relative;
             z-index: 10;
             height: 100dvh;
             display: flex;
             flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 20px 16px;
-            max-width: 420px;
+            justify-content: flex-end; /* הכרטיס יושב למטה ולא מסתיר את התמונה */
+            padding: 16px 14px 24px;
+            max-width: 440px;
             margin: 0 auto;
         }
 
-        /* כרטיס המתנה הדיגיטלי המותאם למובייל */
-        .gift-card {
+        /* כרטיס תחתון צף ואלגנטי */
+        .bottom-card {
             width: 100%;
             background: var(--card-bg);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
+            backdrop-filter: blur(18px);
+            -webkit-backdrop-filter: blur(18px);
             border: 1.5px solid var(--border);
-            border-radius: 28px;
-            box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6), 0 0 30px var(--gold-glow);
-            padding: 26px 20px;
+            border-radius: 26px;
+            padding: 20px 18px 18px;
+            box-shadow: 0 -10px 30px rgba(0, 0, 0, 0.5), 0 0 25px var(--gold-glow);
+            text-align: center;
             display: flex;
             flex-direction: column;
             align-items: center;
-            text-align: center;
-            position: relative;
-            animation: cardAppear 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), opacity 0.4s ease;
         }
 
-        @keyframes cardAppear {
-            from {
-                opacity: 0;
-                transform: translateY(30px) scale(0.96);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0) scale(1);
-            }
+        /* מצב הסתרה כדי לראות את התמונה המשפחתית במלואה */
+        .bottom-card.hidden {
+            transform: translateY(115%);
+            opacity: 0;
+            pointer-events: none;
         }
 
-        /* תג עליון */
-        .badge {
-            background: rgba(244, 196, 83, 0.15);
-            border: 1px solid var(--gold);
-            border-radius: 20px;
-            padding: 5px 14px;
-            font-size: 0.82rem;
-            font-weight: 700;
-            color: var(--gold);
-            margin-bottom: 14px;
-            letter-spacing: 0.5px;
-        }
-
-        /* עיגול המתנה היוקרתי */
-        .gift-icon-wrapper {
-            position: relative;
-            width: 90px;
-            height: 90px;
-            margin-bottom: 14px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .gift-icon-ring {
-            position: absolute;
-            inset: 0;
-            border-radius: 50%;
-            border: 2px dashed var(--gold);
-            animation: rotateGift 20s linear infinite;
-        }
-
-        .gift-icon-circle {
-            width: 76px;
-            height: 76px;
-            background: radial-gradient(circle, #2a2d3d 0%, #151722 100%);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 40px;
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5), inset 0 0 12px var(--gold-glow);
+        /* אייקון מתנה צף מעל הכרטיס */
+        .floating-gift-badge {
+            width: 58px;
+            height: 58px;
+            margin-top: -46px;
+            margin-bottom: 10px;
+            background: radial-gradient(circle, #2d3142 0%, #151824 100%);
             border: 2px solid var(--gold);
-            animation: bounceGift 2.4s ease-in-out infinite;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            box-shadow: 0 8px 18px rgba(0, 0, 0, 0.5), 0 0 15px var(--gold-glow);
+            animation: bounce 2.2s ease-in-out infinite;
         }
 
-        @keyframes rotateGift {
-            100% { transform: rotate(360deg); }
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-6px); }
         }
 
-        @keyframes bounceGift {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.08); }
-        }
-
-        /* כותרות */
         .title {
             font-family: 'Rubik', sans-serif;
-            font-size: 1.8rem;
+            font-size: 1.55rem;
             font-weight: 900;
-            line-height: 1.2;
             background: linear-gradient(135deg, #ffffff 40%, var(--gold) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            margin-bottom: 4px;
+            margin-bottom: 2px;
         }
 
         .subtitle {
-            font-size: 1rem;
+            font-size: 0.95rem;
             color: var(--gold);
             font-weight: 600;
-            margin-bottom: 14px;
+            margin-bottom: 12px;
         }
 
-        /* תיבת הברכה */
+        /* תיבת הברכה - קומפקטית כדי לא להעמיס על המסך */
         .greeting-box {
             background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 16px;
-            padding: 14px 16px;
-            margin-bottom: 18px;
+            border: 1px solid rgba(255, 255, 255, 0.09);
+            border-radius: 14px;
+            padding: 10px 14px;
+            margin-bottom: 15px;
             width: 100%;
         }
 
         .greeting-text {
-            font-size: 0.98rem;
-            line-height: 1.55;
+            font-size: 0.95rem;
+            line-height: 1.5;
             color: #e2e8f0;
             white-space: pre-line;
         }
 
-        /* כפתור מימוש BUYME ענק ומותאם לנייד */
+        /* כפתור מימוש BUYME */
         .buyme-btn {
             width: 100%;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 10px;
-            padding: 16px 20px;
+            padding: 15px 18px;
             background: linear-gradient(135deg, #ffe082 0%, #f4c453 50%, #c49320 100%);
-            color: #11141e;
+            color: #10131d;
             font-family: 'Rubik', sans-serif;
-            font-size: 1.2rem;
+            font-size: 1.15rem;
             font-weight: 800;
             text-decoration: none;
-            border-radius: 18px;
-            box-shadow: 0 10px 25px rgba(244, 196, 83, 0.4), 0 0 15px rgba(244, 196, 83, 0.2);
-            transition: transform 0.15s ease, box-shadow 0.15s ease;
-            position: relative;
-            overflow: hidden;
+            border-radius: 16px;
+            box-shadow: 0 8px 22px rgba(244, 196, 83, 0.4);
+            transition: transform 0.15s ease;
         }
 
         .buyme-btn:active {
-            transform: scale(0.96);
+            transform: scale(0.97);
         }
 
         .buyme-subtext {
-            font-size: 0.8rem;
-            color: rgba(255, 255, 255, 0.55);
-            margin-top: 10px;
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.5);
+            margin-top: 8px;
         }
     </style>
 </head>
 <body>
 
-    <!-- תמונת הרקע המשפחתית שלכם מאחורה -->
-    <div class="mobile-bg"></div>
-    <div class="mobile-overlay"></div>
+    <!-- תמונת הרקע המשפחתית ללא טשטוש במרכז -->
+    <div class="family-photo" id="photoBg"></div>
+    <div class="bottom-shade" id="bottomShade"></div>
+
+    <!-- כפתור צפייה בתמונה מלאה -->
+    <button class="view-toggle-btn" id="toggleBtn" onclick="toggleCard()">
+        <span id="toggleIcon">👁️</span>
+        <span id="toggleText">תמונה מלאה</span>
+    </button>
 
     <div class="screen-container">
-        <div class="gift-card">
+        <!-- כרטיס תחתון שלא מסתיר את פני האנשים -->
+        <div class="bottom-card" id="mainCard">
             
-            <div class="badge">✨ כרטיס מתנה דיגיטלי אישי ✨</div>
-
-            <!-- עיגול המתנה -->
-            <div class="gift-icon-wrapper">
-                <div class="gift-icon-ring"></div>
-                <div class="gift-icon-circle">🎁</div>
-            </div>
+            <div class="floating-gift-badge">🎁</div>
 
             <h1 class="title">לאבא היקר שלנו!</h1>
             <div class="subtitle">אוהבים ומעריכים מכל הלב ❤️</div>
@@ -275,7 +261,29 @@
     </div>
 
     <script>
-        // קונפטי חגיגי בלחיצה
+        // פונקציית הסתרה/הצגה של הכרטיס כדי לראות את התמונה המלאה
+        let isCardVisible = true;
+        function toggleCard() {
+            const card = document.getElementById('mainCard');
+            const shade = document.getElementById('bottomShade');
+            const toggleText = document.getElementById('toggleText');
+            const toggleIcon = document.getElementById('toggleIcon');
+
+            isCardVisible = !isCardVisible;
+            if (isCardVisible) {
+                card.classList.remove('hidden');
+                shade.style.opacity = '1';
+                toggleText.innerText = 'תמונה מלאה';
+                toggleIcon.innerText = '👁️';
+            } else {
+                card.classList.add('hidden');
+                shade.style.opacity = '0';
+                toggleText.innerText = 'הצג כרטיס';
+                toggleIcon.innerText = '🎁';
+            }
+        }
+
+        // קונפטי בלחיצה על כפתור המימוש
         function triggerConfetti() {
             if (typeof confetti === 'function') {
                 confetti({
